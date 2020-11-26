@@ -44,7 +44,7 @@
                     <TextBlock VerticalAlignment="Center" Margin="15,0,0,0">Connect</TextBlock>
                 </StackPanel>
             </Button>
-            <Button IsEnabled="{Binding IsConnected, Mode=OneWay}" Grid.Row="6" Grid.ColumnSpan="2">
+            <Button IsEnabled="{Binding IsConnected, Mode=OneWay}" Name="DisconnectButton" Grid.Row="6" Grid.ColumnSpan="2" Click="DisconnectButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="connect.png" />
                     <TextBlock VerticalAlignment="Center" Margin="15,0,0,0">Disconnect</TextBlock>

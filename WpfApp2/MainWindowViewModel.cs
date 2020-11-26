@@ -13,6 +13,8 @@ namespace WpfApp2
     {
         private Client client;
 
+        private Thread messageHandleThread;
+
         private ObservableCollection<User> users;
         public ObservableCollection<User> Users
         {
@@ -72,7 +74,9 @@ namespace WpfApp2
 
         public void Disconnect()
         {
+            IsConnected = false;
             client.Disconnect();
+            StopMessageHandleThread();
         }
 
         public void RequestUsers()
@@ -84,7 +88,7 @@ namespace WpfApp2
         {
             if (chatMessage.Length > 0)
             {
-                client.SendChatMessage(chatMessage);
+                client.SendChatMessage(chatMessage, 0);
                 ChatMessage = string.Empty;
             }
         }
@@ -110,10 +114,14 @@ namespace WpfApp2
         void StartMessageHandleThread()
         {
             var messageHandleThreadStart = new ThreadStart(MessageHandle);
-            var messageHandleThread = new Thread(messageHandleThreadStart);
+            messageHandleThread = new Thread(messageHandleThreadStart);
             messageHandleThread.Start();
         }
 
+        void StopMessageHandleThread()
+        {
+            messageHandleThread.Interrupt();
+        }
         #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 

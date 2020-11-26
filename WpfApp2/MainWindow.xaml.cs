@@ -37,5 +37,10 @@ namespace WpfApp2
         {
             ViewModel.SendChatMessage();
         }
+
+        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Disconnect();
+        }
     }
 }
